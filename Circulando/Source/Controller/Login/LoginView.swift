@@ -49,6 +49,8 @@ class LoginView: UIView {
         self.addSubview(buttonEntrar)
         self.addSubview(buttonCadastrar)
 
+        
+
         button.addTarget(self, action: #selector(registerTap), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
