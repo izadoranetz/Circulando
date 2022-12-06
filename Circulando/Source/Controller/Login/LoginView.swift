@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class LoginView: UIView {
+
+    //MARK: Inicialização
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .viewBackGroundColor
@@ -16,6 +18,10 @@ class LoginView: UIView {
         setupVisualElements()
     }
 
+    //MARK: Closure
+    var onRegisterTap: (() -> Void)?
+
+    //MARK: Inicializando elementos e propriedades
     //imagem
     var imageLogin = ImageDefault(image: "ImageLogin")
 
@@ -42,6 +48,8 @@ class LoginView: UIView {
         self.addSubview(senhaTextField)
         self.addSubview(buttonEntrar)
         self.addSubview(buttonCadastrar)
+
+        button.addTarget(self, action: #selector(registerTap), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
 
@@ -82,4 +90,11 @@ class LoginView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    //MARK: Actions
+    @objc 
+    private func registerTap() {
+        onRegisterTap()
+    }
+
 }
