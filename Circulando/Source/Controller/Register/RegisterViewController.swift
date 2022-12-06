@@ -1,16 +1,9 @@
-//
-//  LoginViewController.swift
-//  Circulando
-//
-//  Created by Izadora Netz on 28/11/22.
-//
-
 import Foundation
 import UIKit
 
-class LoginViewController: UINavigationController {
+class RegisterViewController: UIViewController {
 
-    var viewMain = LoginView()
+    var viewMain = RegisterView()
 
     override func loadView() {
         self.view = viewMain
@@ -18,11 +11,8 @@ class LoginViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Login"
+        self.title = "Cadastrar"
         self.navigationController?.navigationBar.prefersLargeTitles = true
     }
-
-    
-
 
 }
