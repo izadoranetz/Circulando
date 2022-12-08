@@ -1,15 +1,8 @@
 import Foundation
 import UIKit
 
-class RegisterView: UIView {
-    //MARK: Inicialização
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .viewBackGroundColor
-        //inicializa o visual
-        setupVisualElements()
-    }
-
+class RegisterView: ViewDefault {
+    
     //MARK: Closure
     var onLoginTap: (() ->Void)?
 
@@ -20,22 +13,33 @@ class RegisterView: UIView {
     var imageLabel = LabelDefault(text: "Aumente o ciclo de vida de suas coisas", font: UIFont.systemFont(ofSize: 16, weight: .regular))
 
     //input e-mail
-    var nomeTextField = TextFieldDefault(text: "Nome")
+    var nomeTextField = TextFieldDefault(text: "Nome", keyBoardType: .emailAddress, returnKeyType: .next)
 
     //input e-mail
-    var emailTextField = TextFieldDefault(text: "E-mail")
+    var emailTextField = TextFieldDefault(placeholder: "E-mail", keyBoardType: .emailAddress, returnKeyType: .next)
 
-    //input senha
-    var senhaTextField = TextFieldDefault(text: "Senha")
+    //input senha com máscara
+    var senhaTextField: TextFieldDefault = {
+        let text = TextFieldDefault (placeholder: "Senha", keyBoardType: .emailAddress, returnKeyType: .done)
+
+        text.isSecureTextEntry = true
+
+        return text
+    }()
 
     //botao entrar
-    var buttonCadastrarEEntrar = ButtonDefault(text: "Cadastrar e Entrar")
+    var buttonCadastrarEEntrar = ButtonDefault(placeholder: "Cadastrar e Entrar")
 
     //botao cadastrar
     var buttonCancelar = ButtonDefault(text: "Cancelar")
 
 
-    func setupVisualElements() {
+    override func setupVisualElements() {
+        super.setupVisualElements()
+        nomeTextField.delegate = self
+        emailTextField.delegate = self
+        senhaTextField.delegate = self
+
         self.addSubview(imageCadastrar)
         self.addSubview(imageLabel)
         self.addSubview(nomeTextField)
@@ -96,7 +100,23 @@ class RegisterView: UIView {
         onLoginTap?()
     }()
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+}
+
+
+extension RegisterView: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+
+        if textField == nomeTextField {
+            self.emailTextField.becomeFirstResponder()
+        } else if textField == emailTextField {
+            self.senhaTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+
+        return true
+
     }
+
 }
