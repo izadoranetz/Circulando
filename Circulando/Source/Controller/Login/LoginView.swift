@@ -21,6 +21,8 @@ class LoginView: UIView {
     //MARK: Closure
     var onRegisterTap: (() -> Void)?
 
+    var onLoginTap: (() -> Void)?
+
     //MARK: Inicializando elementos e propriedades
     //imagem
     var imageLogin = ImageDefault(image: "ImageLogin")
@@ -51,7 +53,8 @@ class LoginView: UIView {
 
         
 
-        button.addTarget(self, action: #selector(registerTap), for: .touchUpInside)
+        buttonEntrar.addTarget(self, action: #selector(loginTap), for: .touchUpInside)
+        buttonCadastrar.addTarget(self, action: #selector(registerTap), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
 
@@ -94,6 +97,11 @@ class LoginView: UIView {
     }
 
     //MARK: Actions
+    @objc 
+    private func loginTap() {
+        onLoginTap()
+    }
+
     @objc 
     private func registerTap() {
         onRegisterTap()
