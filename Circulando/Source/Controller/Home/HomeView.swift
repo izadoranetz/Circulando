@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class HomeView: UIView {
+class HomeView: ViewDefault {
   //MARK: - Closures
   
   //MARK: - Proports
@@ -14,12 +14,9 @@ class HomeView: UIView {
     self.backgroundColor = .viewBackGroundColor
   }
   
-  required init? (coder: NSCoder){
-    fatalError("Init(coder: ) has not been implemented")   
-  }
-  
   override func setupVisualElements() {
-    
+     super.setupVisualElements()
+
   }
 
 }
